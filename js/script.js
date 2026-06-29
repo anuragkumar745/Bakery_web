@@ -153,52 +153,113 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 7. Testimonial Reviews Slider Logic
+  // 7. Testimonial Reviews Slider & Google Maps Widget Logic
   const reviewsWrapper = document.getElementById('reviewsWrapper');
-  const reviewSlides = document.querySelectorAll('.review-slide');
   const reviewsPrevBtn = document.getElementById('reviewsPrevBtn');
   const reviewsNextBtn = document.getElementById('reviewsNextBtn');
   const reviewsPagination = document.getElementById('reviewsPagination');
+  const keywordTags = document.querySelectorAll('.keyword-tag');
   
+  let activeKeyword = 'all';
   let currentSlideIndex = 0;
-  const slideCount = reviewSlides.length;
   let autoSlideInterval;
 
-  if (reviewsWrapper && slideCount > 0) {
-    // Generate Pagination Dots
-    for (let i = 0; i < slideCount; i++) {
+  function getVisibleSlides() {
+    return Array.from(document.querySelectorAll('.review-slide')).filter(slide => {
+      if (activeKeyword === 'all') return true;
+      const keywords = slide.getAttribute('data-keywords') || '';
+      return keywords.split(' ').includes(activeKeyword);
+    });
+  }
+
+  function initSlider() {
+    if (!reviewsWrapper) return;
+    
+    // Clear existing dots
+    reviewsPagination.innerHTML = '';
+    
+    const visibleSlides = getVisibleSlides();
+    const count = visibleSlides.length;
+    
+    // Toggle displays
+    const allSlides = document.querySelectorAll('.review-slide');
+    allSlides.forEach(slide => {
+      if (visibleSlides.includes(slide)) {
+        slide.style.display = 'block';
+      } else {
+        slide.style.display = 'none';
+      }
+    });
+
+    if (count === 0) {
+      reviewsPrevBtn.style.display = 'none';
+      reviewsNextBtn.style.display = 'none';
+      return;
+    } else {
+      reviewsPrevBtn.style.display = 'flex';
+      reviewsNextBtn.style.display = 'flex';
+    }
+
+    // Dots
+    for (let i = 0; i < count; i++) {
       const dot = document.createElement('span');
       dot.classList.add('reviews-page-dot');
-      if (i === 0) dot.classList.add('active');
+      if (i === currentSlideIndex) dot.classList.add('active');
       dot.addEventListener('click', () => goToSlide(i));
       reviewsPagination.appendChild(dot);
     }
 
+    updateSlider();
+    resetAutoSlide();
+  }
+
+  function updateSlider() {
+    const visibleSlides = getVisibleSlides();
+    const count = visibleSlides.length;
+    
+    if (count === 0) return;
+    
+    if (currentSlideIndex >= count) currentSlideIndex = 0;
+    if (currentSlideIndex < 0) currentSlideIndex = count - 1;
+
+    reviewsWrapper.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+    
     const dots = document.querySelectorAll('.reviews-page-dot');
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentSlideIndex);
+    });
+  }
 
-    const updateSlider = () => {
-      reviewsWrapper.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
-      dots.forEach((dot, idx) => {
-        dot.classList.toggle('active', idx === currentSlideIndex);
-      });
-    };
+  function goToSlide(index) {
+    currentSlideIndex = index;
+    updateSlider();
+    resetAutoSlide();
+  }
 
-    const goToSlide = (index) => {
-      currentSlideIndex = index;
-      updateSlider();
-      resetAutoSlide();
-    };
+  function nextSlide() {
+    const count = getVisibleSlides().length;
+    if (count <= 1) return;
+    currentSlideIndex = (currentSlideIndex + 1) % count;
+    updateSlider();
+  }
 
-    const nextSlide = () => {
-      currentSlideIndex = (currentSlideIndex + 1) % slideCount;
-      updateSlider();
-    };
+  function prevSlide() {
+    const count = getVisibleSlides().length;
+    if (count <= 1) return;
+    currentSlideIndex = (currentSlideIndex - 1 + count) % count;
+    updateSlider();
+  }
 
-    const prevSlide = () => {
-      currentSlideIndex = (currentSlideIndex - 1 + slideCount) % slideCount;
-      updateSlider();
-    };
+  function startAutoSlide() {
+    autoSlideInterval = setInterval(nextSlide, 6000);
+  }
 
+  function resetAutoSlide() {
+    clearInterval(autoSlideInterval);
+    startAutoSlide();
+  }
+
+  if (reviewsWrapper) {
     reviewsNextBtn.addEventListener('click', () => {
       nextSlide();
       resetAutoSlide();
@@ -209,18 +270,208 @@ document.addEventListener('DOMContentLoaded', () => {
       resetAutoSlide();
     });
 
-    // Auto sliding interval setup
-    const startAutoSlide = () => {
-      autoSlideInterval = setInterval(nextSlide, 6000); // Switch every 6 seconds
-    };
+    keywordTags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        keywordTags.forEach(t => t.classList.remove('active'));
+        tag.classList.add('active');
+        activeKeyword = tag.getAttribute('data-keyword');
+        currentSlideIndex = 0;
+        initSlider();
+      });
+    });
 
-    const resetAutoSlide = () => {
-      clearInterval(autoSlideInterval);
-      startAutoSlide();
-    };
-
-    startAutoSlide();
+    initSlider();
   }
+
+  // Write a Review Modal Actions
+  const btnWriteReview = document.getElementById('btnWriteReview');
+  const writeReviewModal = document.getElementById('writeReviewModal');
+  const writeReviewForm = document.getElementById('writeReviewForm');
+  const starRatingSelector = document.getElementById('starRatingSelector');
+  const ratingStars = document.querySelectorAll('#starRatingSelector .rating-star');
+  const inputRatingValue = document.getElementById('inputRatingValue');
+
+  if (btnWriteReview && writeReviewModal) {
+    btnWriteReview.addEventListener('click', () => {
+      writeReviewModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+
+    window.closeReviewModal = () => {
+      writeReviewModal.classList.remove('open');
+      document.body.style.overflow = '';
+      writeReviewForm.reset();
+      ratingStars.forEach(s => s.classList.add('selected'));
+      inputRatingValue.value = '5';
+    };
+
+    // Star Selection Interaction
+    ratingStars.forEach(star => {
+      star.addEventListener('mouseover', () => {
+        const val = parseInt(star.getAttribute('data-value'), 10);
+        ratingStars.forEach(s => {
+          const sVal = parseInt(s.getAttribute('data-value'), 10);
+          s.classList.toggle('hover', sVal <= val);
+        });
+      });
+
+      star.addEventListener('mouseout', () => {
+        ratingStars.forEach(s => s.classList.remove('hover'));
+      });
+
+      star.addEventListener('click', () => {
+        const val = parseInt(star.getAttribute('data-value'), 10);
+        inputRatingValue.value = val;
+        ratingStars.forEach(s => {
+          const sVal = parseInt(s.getAttribute('data-value'), 10);
+          s.classList.toggle('selected', sVal <= val);
+        });
+      });
+    });
+
+    // Form Submission
+    writeReviewForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('inputReviewName').value.trim();
+      const content = document.getElementById('textareaReviewContent').value.trim();
+      const rating = parseInt(inputRatingValue.value, 10);
+
+      if (!name || !content) {
+        showToast('Please fill out all required fields.');
+        return;
+      }
+
+      // Keyword tagging based on user writing
+      const text = content.toLowerCase();
+      let keywords = [];
+      if (text.includes('hygienic') || text.includes('clean') || text.includes('hygiene')) keywords.push('hygienic');
+      if (text.includes('pastries') || text.includes('pastry') || text.includes('tart') || text.includes('macaron')) keywords.push('pastries');
+      if (text.includes('variety') || text.includes('options') || text.includes('selection')) keywords.push('variety');
+      if (text.includes('price') || text.includes('cheap') || text.includes('moderate') || text.includes('cost')) keywords.push('price');
+      if (text.includes('custom') || text.includes('design') || text.includes('birthday') || text.includes('wedding')) keywords.push('custom');
+      
+      const keywordsStr = keywords.join(' ');
+
+      // Create new review slide markup
+      const slide = document.createElement('div');
+      slide.classList.add('review-slide');
+      slide.setAttribute('data-keywords', keywordsStr);
+
+      let starSVG = '';
+      for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+          starSVG += `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
+        } else {
+          starSVG += `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21L16.54 14l5.46-4.73-7.19-.61L12 2z" opacity=".3"/></svg>`;
+        }
+      }
+
+      slide.innerHTML = `
+        <div class="review-card">
+          <span class="review-quote-icon">“</span>
+          <p class="review-content">${content}</p>
+          <div class="review-author">
+            <div class="review-author-name">${name}</div>
+            <div class="review-rating" aria-label="${rating} out of 5 stars">
+              ${starSVG}
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Prepend review
+      if (reviewsWrapper.firstChild) {
+        reviewsWrapper.insertBefore(slide, reviewsWrapper.firstChild);
+      } else {
+        reviewsWrapper.appendChild(slide);
+      }
+
+      // Update total review count
+      const reviewCountEl = document.getElementById('summaryReviewCount');
+      if (reviewCountEl) {
+        const countText = reviewCountEl.textContent;
+        const currentCount = parseInt(countText.replace(/,/g, ''), 10);
+        if (!isNaN(currentCount)) {
+          reviewCountEl.textContent = (currentCount + 1).toLocaleString() + ' reviews';
+        }
+      }
+
+      closeReviewModal();
+      showToast('Thank you! Your Google review has been posted successfully.');
+
+      // Re-init slider and focus first slide
+      activeKeyword = 'all';
+      keywordTags.forEach(t => t.classList.toggle('active', t.getAttribute('data-keyword') === 'all'));
+      currentSlideIndex = 0;
+      initSlider();
+    });
+  }
+
+  // Google Maps Listing Panel Interactions
+  const mapsHoursItem = document.getElementById('mapsHoursItem');
+  const btnSaveListing = document.getElementById('btnSaveListing');
+  const btnShareListing = document.getElementById('btnShareListing');
+  const btnSuggestEdit = document.getElementById('btnSuggestEdit');
+
+  if (mapsHoursItem) {
+    mapsHoursItem.addEventListener('click', (e) => {
+      // Toggle dropdown active class
+      mapsHoursItem.classList.toggle('active');
+      const chevron = mapsHoursItem.querySelector('.chevron-hours');
+      if (chevron) {
+        chevron.textContent = mapsHoursItem.classList.contains('active') ? '▲' : '▼';
+      }
+    });
+  }
+
+  if (btnSaveListing) {
+    btnSaveListing.addEventListener('click', () => {
+      const isSaved = btnSaveListing.classList.toggle('saved');
+      const bookmarkIcon = document.getElementById('bookmarkIcon');
+      const txtSaveBtn = document.getElementById('txtSaveBtn');
+
+      if (isSaved) {
+        bookmarkIcon.innerHTML = `<path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/>`;
+        btnSaveListing.style.color = 'var(--color-accent)';
+        txtSaveBtn.textContent = 'Saved';
+        showToast('Saved to your Google Maps list!');
+      } else {
+        bookmarkIcon.innerHTML = `<path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2zm0 15l-5-2.18L7 18V5h10v13z"/>`;
+        btnSaveListing.style.color = '';
+        txtSaveBtn.textContent = 'Save';
+        showToast('Removed from your list.');
+      }
+    });
+  }
+
+  if (btnShareListing) {
+    btnShareListing.addEventListener('click', () => {
+      const dummyText = 'La Céleste Bakery, 742 Madison Ave, New York, NY 10021';
+      navigator.clipboard.writeText(dummyText).then(() => {
+        showToast('Atelier location address copied to clipboard!');
+      }).catch(() => {
+        showToast('Atelier: 742 Madison Ave, New York, NY 10021');
+      });
+    });
+  }
+
+  if (btnSuggestEdit) {
+    btnSuggestEdit.addEventListener('click', () => {
+      showToast('Thank you! Your suggestions have been sent to the editor.');
+    });
+  }
+
+  window.scrollToMap = () => {
+    const inlineMap = document.getElementById('inlineMapContainer');
+    if (inlineMap) {
+      inlineMap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  window.showDeliveryBounds = () => {
+    showToast('La Céleste hand-delivers daily to Manhattan, Brooklyn, & Queens.');
+  };
 
   // 8. FAQ Accordion Logic
   const faqQuestions = document.querySelectorAll('.faq-question-btn');

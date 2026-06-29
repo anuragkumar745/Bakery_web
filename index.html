@@ -798,74 +798,149 @@
         <p class="section-desc">Discover how we help make birthdays, wedding ceremonies, and private events extra memorable.</p>
       </div>
 
-      <div class="reviews-slider-container">
-        <div class="reviews-wrapper" id="reviewsWrapper">
-          
-          <!-- Slide 1 -->
-          <div class="review-slide">
-            <div class="review-card">
-              <span class="review-quote-icon">“</span>
-              <p class="review-content">La Céleste designed the wedding cake of our dreams! Not only did the gold detailing wow all our guests, but the almond sponge was incredibly moist. Absolutely spectacular experience!</p>
-              <div class="review-author">
-                <div class="review-author-name">Clara & James Vance</div>
-                <div class="review-rating" aria-label="5 out of 5 stars">
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                </div>
+      <div class="reviews-section-layout">
+        <!-- Left Column: Google Maps Review Summary Card -->
+        <div class="reviews-summary-card">
+          <div class="summary-score-header">Review summary</div>
+          <div class="summary-score-wrapper">
+            <div class="summary-big-score" id="summaryScore">4.9</div>
+            <div class="summary-stars-wrapper">
+              <div class="summary-stars">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
               </div>
+              <span class="summary-review-count" id="summaryReviewCount">2,140 reviews</span>
             </div>
           </div>
 
-          <!-- Slide 2 -->
-          <div class="review-slide">
-            <div class="review-card">
-              <span class="review-quote-icon">“</span>
-              <p class="review-content">I ordered the custom macarons and a chocolate birthday cake for my daughter. Finding a high-quality eggless cake shop in NYC is tough, but this cake was so delicious that nobody could tell it was eggless!</p>
-              <div class="review-author">
-                <div class="review-author-name">Meera Shah</div>
-                <div class="review-rating" aria-label="5 out of 5 stars">
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                </div>
-              </div>
+          <!-- Star Breakdown Progress Bars -->
+          <div class="summary-bars-container">
+            <div class="summary-bar-row">
+              <span>5</span>
+              <div class="summary-bar"><div class="summary-bar-fill" style="width: 92%;"></div></div>
+            </div>
+            <div class="summary-bar-row">
+              <span>4</span>
+              <div class="summary-bar"><div class="summary-bar-fill" style="width: 6%;"></div></div>
+            </div>
+            <div class="summary-bar-row">
+              <span>3</span>
+              <div class="summary-bar"><div class="summary-bar-fill" style="width: 1.5%;"></div></div>
+            </div>
+            <div class="summary-bar-row">
+              <span>2</span>
+              <div class="summary-bar"><div class="summary-bar-fill" style="width: 0.3%;"></div></div>
+            </div>
+            <div class="summary-bar-row">
+              <span>1</span>
+              <div class="summary-bar"><div class="summary-bar-fill" style="width: 0.2%;"></div></div>
             </div>
           </div>
 
-          <!-- Slide 3 -->
-          <div class="review-slide">
-            <div class="review-card">
-              <span class="review-quote-icon">“</span>
-              <p class="review-content">The pre-order process via WhatsApp is incredibly seamless! I chose the Double Chocolate Truffle Cake, specified delivery date and text, and it showed up looking pristine in a custom box.</p>
-              <div class="review-author">
-                <div class="review-author-name">Alexander Sterling</div>
-                <div class="review-rating" aria-label="4.9 out of 5 stars">
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21L16.54 14l5.46-4.73-7.19-.61L12 2z" opacity=".3"/></svg>
-                </div>
-              </div>
+          <!-- Highlighted Snippets -->
+          <div class="summary-review-snippets">
+            <div class="snippet-item">
+              <div class="snippet-avatar" style="background-color: #E0F2F1; color: #00796B;">C</div>
+              <p>"Excellent **variety** of custom designs, rich **Belgian chocolate** layers, and **hygienic** packaging."</p>
+            </div>
+            <div class="snippet-item">
+              <div class="snippet-avatar" style="background-color: #FCE4EC; color: #C2185B;">M</div>
+              <p>"They provide the best **pastries** and custom birthday cakes at **moderate price** ranges."</p>
             </div>
           </div>
 
+          <!-- Write a Review Button -->
+          <button class="btn btn-outline btn-write-review" id="btnWriteReview">
+            <svg style="width:16px; height:16px; fill:currentColor; margin-right:6px;" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            Write a review
+          </button>
         </div>
 
-        <!-- Review Slider Navigation Controls -->
-        <div class="reviews-nav">
-          <button class="reviews-nav-btn" id="reviewsPrevBtn" aria-label="Previous Review">
-            <svg viewBox="0 0 24 24"><path d="M15.41 16.58L10.83 12l4.58-4.58L14 6l-6 6 6 6 1.41-1.42z"/></svg>
-          </button>
-          <div class="reviews-pagination" id="reviewsPagination"></div>
-          <button class="reviews-nav-btn" id="reviewsNextBtn" aria-label="Next Review">
-            <svg viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-          </button>
+        <!-- Right Column: Keywords & Testimonial Slider -->
+        <div class="reviews-slider-column">
+          <!-- Google Maps Review Filter Tags -->
+          <div class="reviews-keyword-tags" id="reviewsKeywordTags">
+            <button class="keyword-tag active" data-keyword="all">✓ All</button>
+            <button class="keyword-tag" data-keyword="hygienic">hygienic food 43</button>
+            <button class="keyword-tag" data-keyword="pastries">pastries 35</button>
+            <button class="keyword-tag" data-keyword="variety">variety 12</button>
+            <button class="keyword-tag" data-keyword="price">price 8</button>
+            <button class="keyword-tag" data-keyword="custom">custom designs 15</button>
+          </div>
+
+          <div class="reviews-slider-container">
+            <div class="reviews-wrapper" id="reviewsWrapper">
+              
+              <!-- Slide 1: Clara -->
+              <div class="review-slide" data-keywords="custom variety">
+                <div class="review-card">
+                  <span class="review-quote-icon">“</span>
+                  <p class="review-content">La Céleste designed the wedding cake of our dreams! Not only did the **custom** gold detailing wow all our guests, but the almond sponge was incredibly moist. Absolutely spectacular **variety** and experience!</p>
+                  <div class="review-author">
+                    <div class="review-author-name">Clara & James Vance</div>
+                    <div class="review-rating" aria-label="5 out of 5 stars">
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 2: Meera -->
+              <div class="review-slide" data-keywords="hygienic pastries">
+                <div class="review-card">
+                  <span class="review-quote-icon">“</span>
+                  <p class="review-content">I ordered the custom **pastries** and a chocolate birthday cake for my daughter. Finding a **hygienic** eggless cake shop in NYC is tough, but this cake was so delicious that nobody could tell it was eggless!</p>
+                  <div class="review-author">
+                    <div class="review-author-name">Meera Shah</div>
+                    <div class="review-rating" aria-label="5 out of 5 stars">
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 3: Alexander -->
+              <div class="review-slide" data-keywords="price">
+                <div class="review-card">
+                  <span class="review-quote-icon">“</span>
+                  <p class="review-content">The pre-order process via WhatsApp is incredibly seamless! I chose the Double Chocolate Truffle Cake, specified delivery, and it showed up looking pristine in a custom box. Highly premium for a moderate **price**.</p>
+                  <div class="review-author">
+                    <div class="review-author-name">Alexander Sterling</div>
+                    <div class="review-rating" aria-label="4.9 out of 5 stars">
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21L16.54 14l5.46-4.73-7.19-.61L12 2z" opacity=".3"/></svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Review Slider Navigation Controls -->
+            <div class="reviews-nav">
+              <button class="reviews-nav-btn" id="reviewsPrevBtn" aria-label="Previous Review">
+                <svg viewBox="0 0 24 24"><path d="M15.41 16.58L10.83 12l4.58-4.58L14 6l-6 6 6 6 1.41-1.42z"/></svg>
+              </button>
+              <div class="reviews-pagination" id="reviewsPagination"></div>
+              <button class="reviews-nav-btn" id="reviewsNextBtn" aria-label="Next Review">
+                <svg viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 L8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1006,44 +1081,108 @@
           </form>
         </div>
 
-        <!-- Contact Info Side -->
-        <div class="contact-info-side">
+        <!-- Contact Info Side (Google Maps Listing Panel style) -->
+        <div class="contact-info-side maps-listing-panel">
           
-          <!-- Box 1: Address -->
-          <div class="contact-info-box">
-            <div class="contact-info-icon-wrapper">
-              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <!-- Listing Header -->
+          <div class="maps-header">
+            <h3 class="maps-title">La Céleste - Premium Cake Atelier</h3>
+            <span class="maps-subtitle-in">ला सेलेस्ते - प्रीमियम केक एतलिए</span>
+            <div class="maps-rating-row">
+              <span class="rating-score">4.9</span>
+              <div class="maps-stars">★★★★★</div>
+              <span class="rating-count">(2,140)</span>
+              <span class="price-range">· $$$</span>
             </div>
-            <div class="contact-info-text">
-              <h4>Atelier Location</h4>
-              <p>742 Madison Ave, New York, NY 10021</p>
+            <div class="maps-category">Artisan Cake Shop & Patisserie</div>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div class="maps-quick-actions">
+            <button type="button" class="action-btn" onclick="scrollToMap()">
+              <div class="action-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              </div>
+              <span>Directions</span>
+            </button>
+            <button type="button" class="action-btn" id="btnSaveListing">
+              <div class="action-icon">
+                <svg viewBox="0 0 24 24" id="bookmarkIcon"><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2zm0 15l-5-2.18L7 18V5h10v13z"/></svg>
+              </div>
+              <span id="txtSaveBtn">Save</span>
+            </button>
+            <button type="button" class="action-btn" onclick="showDeliveryBounds()">
+              <div class="action-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              </div>
+              <span>Nearby</span>
+            </button>
+            <button type="button" class="action-btn" id="btnShareListing">
+              <div class="action-icon">
+                <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.8 2.04.8 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+              </div>
+              <span>Share</span>
+            </button>
+          </div>
+
+          <!-- Listing Details List -->
+          <div class="maps-details-list">
+            <!-- Item 1: Address -->
+            <div class="maps-listing-item">
+              <span class="item-icon">📍</span>
+              <span class="item-text">742 Madison Ave, New York, NY 10021</span>
+            </div>
+            
+            <!-- Item 2: Hours -->
+            <div class="maps-listing-item expandable" id="mapsHoursItem">
+              <span class="item-icon">🕐</span>
+              <div class="item-text-wrapper">
+                <span class="item-text text-highlight-open">Open</span> · Closes 8 PM <span class="chevron-hours">▼</span>
+                <div class="hours-dropdown" id="hoursDropdown">
+                  <div>Mon: 8:00 AM - 8:00 PM</div>
+                  <div>Tue: 8:00 AM - 8:00 PM</div>
+                  <div>Wed: 8:00 AM - 8:00 PM</div>
+                  <div>Thu: 8:00 AM - 8:00 PM</div>
+                  <div>Fri: 8:00 AM - 8:00 PM</div>
+                  <div>Sat: 8:00 AM - 8:00 PM</div>
+                  <div>Sun: 9:00 AM - 6:00 PM</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 3: Find Table -->
+            <a href="https://opentable.com" class="maps-listing-item link-item" target="_blank">
+              <span class="item-icon">📅</span>
+              <span class="item-text">Find a table · opentable.com</span>
+            </a>
+
+            <!-- Item 4: Place Order -->
+            <a href="#categories" class="maps-listing-item link-item">
+              <span class="item-icon">🚚</span>
+              <span class="item-text text-highlight-order">Place an order</span>
+            </a>
+
+            <!-- Item 5: Phone -->
+            <a href="tel:+15550199" class="maps-listing-item link-item">
+              <span class="item-icon">📞</span>
+              <span class="item-text">+1 (555) 0199</span>
+            </a>
+
+            <!-- Item 6: Plus Code -->
+            <div class="maps-listing-item">
+              <span class="item-icon">🗺️</span>
+              <span class="item-text">Q2GG+3X Manhattan, New York</span>
             </div>
           </div>
 
-          <!-- Box 2: Opening Hours -->
-          <div class="contact-info-box">
-            <div class="contact-info-icon-wrapper">
-              <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-            </div>
-            <div class="contact-info-text">
-              <h4>Opening Hours</h4>
-              <p>Mon - Sat: 8:00 AM - 8:00 PM<br>Sun: 9:00 AM - 6:00 PM</p>
-            </div>
-          </div>
-
-          <!-- Box 3: Contact Details -->
-          <div class="contact-info-box">
-            <div class="contact-info-icon-wrapper">
-              <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-            </div>
-            <div class="contact-info-text">
-              <h4>Direct Hotline</h4>
-              <p>Phone: <a href="tel:+15550199">+1 (555) 0199</a><br>Email: <a href="mailto:order@lacelestebakery.com">order@lacelestebakery.com</a></p>
-            </div>
-          </div>
+          <!-- Suggest an Edit Button -->
+          <button type="button" class="btn-suggest-edit" id="btnSuggestEdit">
+            <svg style="width:14px; height:14px; fill:currentColor; margin-right:4px;" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/></svg>
+            Suggest an edit
+          </button>
 
           <!-- Google Maps Embed Container -->
-          <div class="map-container">
+          <div class="map-container" id="inlineMapContainer">
             <iframe 
               src="https://maps.google.com/maps?q=742%20Madison%20Ave,%20New%20York,%20NY%2010021&t=&z=15&ie=UTF8&iwloc=&output=embed" 
               allowfullscreen="" 
@@ -1245,6 +1384,45 @@
           </button>
         </form>
 
+      </div>
+    </div>
+  </div>
+
+  <!-- Write a Review Modal -->
+  <div class="modal-overlay" id="writeReviewModal" role="dialog" aria-modal="true" aria-labelledby="reviewModalTitle">
+    <div class="modal-wrapper">
+      <div class="modal-header">
+        <h3 class="modal-title" id="reviewModalTitle">Write a Google Review</h3>
+        <button class="modal-close-btn" aria-label="Close Review Modal" onclick="closeReviewModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="writeReviewForm" novalidate>
+          <div class="form-group" style="text-align: center;">
+            <label class="form-label" style="display:block; margin-bottom: 12px;">Your Rating *</label>
+            <div class="star-rating-selector" id="starRatingSelector">
+              <span class="rating-star selected" data-value="1">★</span>
+              <span class="rating-star selected" data-value="2">★</span>
+              <span class="rating-star selected" data-value="3">★</span>
+              <span class="rating-star selected" data-value="4">★</span>
+              <span class="rating-star selected" data-value="5">★</span>
+            </div>
+            <input type="hidden" id="inputRatingValue" value="5" required>
+          </div>
+
+          <div class="form-group">
+            <label for="inputReviewName" class="form-label">Your Name *</label>
+            <input type="text" id="inputReviewName" class="form-control" placeholder="e.g. John Smith" required>
+          </div>
+
+          <div class="form-group">
+            <label for="textareaReviewContent" class="form-label">Review Text *</label>
+            <textarea id="textareaReviewContent" class="form-control" rows="4" placeholder="Share your experience (highlight keywords like 'pastries', 'variety', 'hygienic' for tags)..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;">
+            Submit Review
+          </button>
+        </form>
       </div>
     </div>
   </div>
