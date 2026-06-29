@@ -2576,3 +2576,205 @@ textarea.form-control {
     gap: 50px;
   }
 }
+
+/* ==========================================
+   14. User Login and Registration Styles
+   ========================================== */
+
+.auth-header-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.user-profile-menu {
+  position: relative;
+}
+
+.profile-avatar-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-round);
+  background: var(--color-accent);
+  color: #FFFFFF;
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: var(--transition-smooth);
+}
+
+.profile-avatar-btn:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-sm);
+}
+
+/* User Menu Dropdown */
+.profile-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 240px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 15px 0;
+  z-index: 1100;
+  display: none;
+  flex-direction: column;
+  animation: slideDropdownDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+}
+
+.profile-dropdown.open {
+  display: flex;
+}
+
+@keyframes slideDropdownDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-header {
+  padding: 5px 20px 12px;
+}
+
+.dropdown-header h5 {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.dropdown-header span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 8px 0;
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdown-item:hover {
+  background: var(--bg-secondary);
+  color: var(--color-accent);
+}
+
+.dropdown-item.logout-item:hover {
+  color: var(--color-danger);
+  background: #FFF5F5;
+}
+
+/* Tab button headers */
+.auth-tab-btn {
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  border-bottom: 2px solid transparent !important;
+  transition: var(--transition-smooth);
+}
+
+.auth-tab-btn:hover {
+  color: var(--text-primary);
+}
+
+.auth-tab-btn.active {
+  color: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+}
+
+/* User Account Profile Info */
+.profile-avatar-large {
+  box-shadow: 0 0 0 5px var(--bg-secondary);
+  border: 3px solid var(--border-color);
+}
+
+/* Order History Styling */
+.order-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.order-history-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.order-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed var(--border-color);
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+}
+
+.order-cake-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.order-date-badge {
+  font-size: 0.8rem;
+  background: var(--bg-secondary);
+  padding: 4px 10px;
+  border-radius: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.order-detail-row {
+  display: flex;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.order-detail-label {
+  width: 90px;
+  font-weight: 700;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.order-detail-value {
+  color: var(--text-secondary);
+}

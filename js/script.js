@@ -713,9 +713,27 @@ if (orderCustomizerForm) {
 
     // Simple validation check
     if (!clientName || !deliveryDate || !deliveryAddress) {
-      alert('Please fill in your Name, Delivery Date, and Delivery Address.');
+      showToast('Please fill in your Name, Delivery Date, and Delivery Address.');
       return;
     }
+
+    // Save order details to local storage history
+    const loggedInEmail = localStorage.getItem('laceleste_logged_in') || 'guest';
+    const orderData = {
+      email: loggedInEmail,
+      cakeName: cakeName,
+      size: selectedSize,
+      eggless: egglessOption,
+      message: cakeMessage,
+      date: deliveryDate,
+      address: deliveryAddress,
+      notes: specialNotes,
+      timestamp: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+    };
+
+    const existingOrders = JSON.parse(localStorage.getItem('laceleste_orders') || '[]');
+    existingOrders.unshift(orderData); // Add new order to start
+    localStorage.setItem('laceleste_orders', JSON.stringify(existingOrders));
 
     // Pre-filled WhatsApp direct link formatting
     const whatsappBase = 'https://wa.me/15550199';
@@ -743,5 +761,329 @@ Please send over the secure payment invoice link. Thank you!`;
 
     // Close Order modal and reset form
     window.closeOrderModal();
+    showToast('Order customized successfully! Redirecting to WhatsApp...');
   });
+}
+
+// ==========================================
+// 12. User Authentication System Logic
+// ==========================================
+
+const btnHeaderLogin = document.getElementById('btnHeaderLogin');
+const authModal = document.getElementById('authModal');
+const loginForm = document.getElementById('loginForm');
+const signUpForm = document.getElementById('signUpForm');
+const userProfileMenu = document.getElementById('userProfileMenu');
+const profileAvatarBtn = document.getElementById('profileAvatarBtn');
+const profileDropdown = document.getElementById('profileDropdown');
+const btnLogout = document.getElementById('btnLogout');
+
+const profileModal = document.getElementById('profileModal');
+const orderHistoryModal = document.getElementById('orderHistoryModal');
+
+// Check Initial Authentication Session State
+function checkAuthState() {
+  const loggedInEmail = localStorage.getItem('laceleste_logged_in');
+  const loggedInName = localStorage.getItem('laceleste_user_name');
+
+  if (loggedInEmail && loggedInName) {
+    // Show Profile Menu, Hide Login Button
+    if (btnHeaderLogin) btnHeaderLogin.style.display = 'none';
+    if (userProfileMenu) userProfileMenu.style.display = 'block';
+
+    // Set Avatar Initial Character
+    const avatarInitial = document.getElementById('avatarInitial');
+    if (avatarInitial) avatarInitial.textContent = loggedInName.charAt(0).toUpperCase();
+
+    // Set dropdown info
+    const dropdownUserName = document.getElementById('dropdownUserName');
+    const dropdownUserEmail = document.getElementById('dropdownUserEmail');
+    if (dropdownUserName) dropdownUserName.textContent = loggedInName;
+    if (dropdownUserEmail) dropdownUserEmail.textContent = loggedInEmail;
+  } else {
+    // Show Login Button, Hide Profile Menu
+    if (btnHeaderLogin) btnHeaderLogin.style.display = 'block';
+    if (userProfileMenu) userProfileMenu.style.display = 'none';
+  }
+}
+
+// Open / Close Auth modal
+if (btnHeaderLogin) {
+  btnHeaderLogin.addEventListener('click', () => {
+    if (authModal) {
+      authModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      switchAuthTab('login');
+    }
+  });
+}
+
+window.closeAuthModal = function() {
+  if (authModal) {
+    authModal.classList.remove('open');
+    document.body.style.overflow = '';
+    loginForm.reset();
+    signUpForm.reset();
+  }
+};
+
+// Switch Tabs Login / Sign Up
+window.switchAuthTab = function(tab) {
+  const tabBtnLogin = document.getElementById('tabBtnLogin');
+  const tabBtnSignUp = document.getElementById('tabBtnSignUp');
+
+  if (tab === 'login') {
+    if (loginForm) loginForm.style.display = 'block';
+    if (signUpForm) signUpForm.style.display = 'none';
+    if (tabBtnLogin) tabBtnLogin.classList.add('active');
+    if (tabBtnSignUp) tabBtnSignUp.classList.remove('active');
+  } else {
+    if (loginForm) loginForm.style.display = 'none';
+    if (signUpForm) signUpForm.style.display = 'block';
+    if (tabBtnLogin) tabBtnLogin.classList.remove('active');
+    if (tabBtnSignUp) tabBtnSignUp.classList.add('active');
+  }
+};
+
+// Toggle dropdown profile menu click handler
+if (profileAvatarBtn) {
+  profileAvatarBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (profileDropdown) profileDropdown.classList.toggle('open');
+  });
+}
+
+// Close Dropdown when clicking outside
+window.addEventListener('click', () => {
+  if (profileDropdown) profileDropdown.classList.remove('open');
+});
+
+// Auth modal overlay click wrapper
+if (authModal) {
+  authModal.addEventListener('click', (e) => {
+    if (e.target === authModal) {
+      window.closeAuthModal();
+    }
+  });
+}
+
+// SignUp submit handler
+if (signUpForm) {
+  signUpForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('signUpName').value.trim();
+    const email = document.getElementById('signUpEmail').value.trim().toLowerCase();
+    const password = document.getElementById('signUpPassword').value;
+    const confirmPassword = document.getElementById('signUpConfirmPassword').value;
+
+    // Standard Validation Checks
+    if (!name || !email || !password || !confirmPassword) {
+      showToast('All fields are required.');
+      return;
+    }
+
+    if (password.length < 6) {
+      showToast('Password must be at least 6 characters.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      showToast('Passwords do not match.');
+      return;
+    }
+
+    // Check if account already exists
+    const userKey = 'laceleste_user_' + email;
+    if (localStorage.getItem(userKey)) {
+      showToast('An account with this email already exists.');
+      return;
+    }
+
+    // Store user account locally
+    const userData = { name: name, password: password };
+    localStorage.setItem(userKey, JSON.stringify(userData));
+
+    // Sign in the user immediately
+    localStorage.setItem('laceleste_logged_in', email);
+    localStorage.setItem('laceleste_user_name', name);
+
+    showToast(`Account created successfully! Welcome ${name}.`);
+    window.closeAuthModal();
+    checkAuthState();
+  });
+}
+
+// Login submit handler
+if (loginForm) {
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const password = document.getElementById('loginPassword').value;
+
+    if (!email || !password) {
+      showToast('Please enter both email and password.');
+      return;
+    }
+
+    const userKey = 'laceleste_user_' + email;
+    const savedUserRaw = localStorage.getItem(userKey);
+
+    if (!savedUserRaw) {
+      showToast('Invalid email or password.');
+      return;
+    }
+
+    const savedUser = JSON.parse(savedUserRaw);
+    if (savedUser.password !== password) {
+      showToast('Invalid email or password.');
+      return;
+    }
+
+    // Set Session State
+    localStorage.setItem('laceleste_logged_in', email);
+    localStorage.setItem('laceleste_user_name', savedUser.name);
+
+    showToast(`Logged in successfully. Welcome back, ${savedUser.name}!`);
+    window.closeAuthModal();
+    checkAuthState();
+  });
+}
+
+// Logout click listener
+if (btnLogout) {
+  btnLogout.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('laceleste_logged_in');
+    localStorage.removeItem('laceleste_user_name');
+    showToast('Logged out successfully.');
+    checkAuthState();
+    if (profileDropdown) profileDropdown.classList.remove('open');
+  });
+}
+
+// Forgot Password mock handler
+window.handleForgotPassword = function(e) {
+  e.preventDefault();
+  const email = prompt('Enter your registered email address:');
+  if (!email) return;
+
+  const userKey = 'laceleste_user_' + email.trim().toLowerCase();
+  if (localStorage.getItem(userKey)) {
+    alert('A password reset link has been simulated and sent to your email address!');
+  } else {
+    alert('No account was found with that email address.');
+  }
+};
+
+// Profile Modals
+window.openProfileModal = function() {
+  if (profileDropdown) profileDropdown.classList.remove('open');
+  const loggedInEmail = localStorage.getItem('laceleste_logged_in');
+  const loggedInName = localStorage.getItem('laceleste_user_name');
+
+  if (!loggedInEmail) return;
+
+  const profileName = document.getElementById('profileName');
+  const profileEmail = document.getElementById('profileEmail');
+  const profileAvatarLarge = document.getElementById('profileAvatarLarge');
+
+  if (profileName) profileName.textContent = loggedInName;
+  if (profileEmail) profileEmail.textContent = loggedInEmail;
+  if (profileAvatarLarge) profileAvatarLarge.textContent = loggedInName.charAt(0).toUpperCase();
+
+  if (profileModal) {
+    profileModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+};
+
+window.closeProfileModal = function() {
+  if (profileModal) {
+    profileModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+};
+
+// Order History Modals
+window.openOrderHistoryModal = function() {
+  if (profileDropdown) profileDropdown.classList.remove('open');
+  const loggedInEmail = localStorage.getItem('laceleste_logged_in') || 'guest';
+
+  const orderHistoryList = document.getElementById('orderHistoryList');
+  if (!orderHistoryList) return;
+
+  const allOrders = JSON.parse(localStorage.getItem('laceleste_orders') || '[]');
+  const userOrders = allOrders.filter(o => o.email === loggedInEmail);
+
+  if (userOrders.length > 0) {
+    orderHistoryList.innerHTML = userOrders.map(order => `
+      <div class="order-history-card">
+        <div class="order-history-header">
+          <span class="order-cake-title">${order.cakeName}</span>
+          <span class="order-date-badge">${order.date}</span>
+        </div>
+        <div class="order-detail-row">
+          <span class="order-detail-label">Size:</span>
+          <span class="order-detail-value">${order.size}</span>
+        </div>
+        <div class="order-detail-row">
+          <span class="order-detail-label">Base:</span>
+          <span class="order-detail-value">${order.eggless}</span>
+        </div>
+        <div class="order-detail-row">
+          <span class="order-detail-label">Message:</span>
+          <span class="order-detail-value">"${order.message}"</span>
+        </div>
+        <div class="order-detail-row">
+          <span class="order-detail-label">Address:</span>
+          <span class="order-detail-value">${order.address}</span>
+        </div>
+        ${order.notes && order.notes !== 'None' ? `
+        <div class="order-detail-row">
+          <span class="order-detail-label">Notes:</span>
+          <span class="order-detail-value">${order.notes}</span>
+        </div>` : ''}
+      </div>
+    `).join('');
+  } else {
+    orderHistoryList.innerHTML = `
+      <div class="no-orders-message" style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
+        <svg style="width: 50px; height: 50px; fill: currentColor; margin-bottom: 15px; opacity: 0.5;" viewBox="0 0 24 24"><path d="M11 9H13V11H11V9M11 5H13V7H11V5M11 13H13V17H11V13M12 2C6.47 2 2 6.47 2 12S6.47 22 12 22 22 17.53 22 12 17.53 2 12 2M12 20C7.59 20 4 16.41 4 12S7.59 4 12 4 20 7.59 20 12 16.41 20 12 20Z"/></svg>
+        <p style="font-size: 1rem; font-weight: 600;">No orders placed yet.</p>
+        <p style="font-size: 0.85rem; margin-top: 5px;">Customize a cake card and place a WhatsApp order to start your history!</p>
+      </div>
+    `;
+  }
+
+  if (orderHistoryModal) {
+    orderHistoryModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+};
+
+window.closeOrderHistoryModal = function() {
+  if (orderHistoryModal) {
+    orderHistoryModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+};
+
+// Profile modal background click wrapper
+if (profileModal) {
+  profileModal.addEventListener('click', (e) => {
+    if (e.target === profileModal) window.closeProfileModal();
+  });
+}
+
+// History modal background click wrapper
+if (orderHistoryModal) {
+  orderHistoryModal.addEventListener('click', (e) => {
+    if (e.target === orderHistoryModal) window.closeOrderHistoryModal();
+  });
+}
+
+// Run auth check on DOM Load
+checkAuthState();
 }
