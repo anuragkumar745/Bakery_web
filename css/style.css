@@ -1693,8 +1693,11 @@ textarea.form-control {
 
 .modal-wrapper {
   background: var(--bg-card);
-  width: 100%;
+  width: calc(100% - 32px); /* Leave 16px safety margin on left & right of small devices */
   max-width: 540px;
+  max-height: 90vh;         /* Keep layout within the bounds of the browser screen */
+  display: flex;
+  flex-direction: column;
   border-radius: var(--border-radius-lg);
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-lg);
@@ -1710,15 +1713,16 @@ textarea.form-control {
 .modal-header {
   background: var(--color-accent);
   color: #FFFFFF;
-  padding: 24px 30px;
+  padding: 20px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0; /* Prevent header from resizing/collapsing */
 }
 
 .modal-title {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: #FFFFFF;
 }
 
@@ -1733,7 +1737,9 @@ textarea.form-control {
 }
 
 .modal-body {
-  padding: 30px;
+  padding: 24px;
+  overflow-y: auto; /* Allow form scroll inside modal container if height constraints trigger */
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal-cake-summary {
@@ -1986,6 +1992,32 @@ textarea.form-control {
   
   .footer-grid {
     grid-template-columns: 1fr;
+  }
+  
+  /* Modal Mobile Sizing Overrides */
+  .modal-header {
+    padding: 16px 20px;
+  }
+  .modal-title {
+    font-size: 1.15rem;
+  }
+  .modal-body {
+    padding: 16px 20px;
+  }
+  .modal-cake-summary {
+    margin-bottom: 16px;
+    padding: 10px;
+    gap: 10px;
+  }
+  .modal-cake-img {
+    width: 50px;
+    height: 50px;
+  }
+  .modal-cake-info h4 {
+    font-size: 1rem;
+  }
+  .modal-cake-info p {
+    font-size: 0.85rem;
   }
 }
 
