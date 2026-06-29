@@ -457,11 +457,12 @@ if (orderCustomizerForm) {
     const cakeMessage = document.getElementById('inputCakeText').value.trim() || 'None';
     const deliveryDate = document.getElementById('inputDeliveryDate').value;
     const clientName = document.getElementById('inputClientName').value.trim();
+    const deliveryAddress = document.getElementById('inputAddress').value.trim();
     const specialNotes = document.getElementById('inputSpecialNotes').value.trim() || 'None';
 
     // Simple validation check
-    if (!clientName || !deliveryDate) {
-      alert('Please fill in your Name and preferred Delivery Date.');
+    if (!clientName || !deliveryDate || !deliveryAddress) {
+      alert('Please fill in your Name, Delivery Date, and Delivery Address.');
       return;
     }
 
@@ -477,6 +478,7 @@ I would like to place an order for the following delicacy:
 🥚 *Base Option:* ${egglessOption}
 ✍️ *Message on Cake:* "${cakeMessage}"
 📅 *Preferred Delivery:* ${deliveryDate}
+📍 *Delivery Address:* ${deliveryAddress}
 👤 *Client Name:* ${clientName}
 📝 *Special Notes/Flavor Changes:* ${specialNotes}
 
