@@ -1988,3 +1988,100 @@ textarea.form-control {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================
+   12. Custom Premium Animation Features
+   ========================================== */
+
+/* Shimmer Sweep Effect for primary and secondary CTA buttons */
+.btn-primary::before, .btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: skewX(-25deg);
+  z-index: 2;
+}
+
+.btn-primary:hover::before, .btn-secondary:hover::before {
+  animation: shimmerSweep 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmerSweep {
+  0% { left: -150%; }
+  100% { left: 150%; }
+}
+
+/* Floating Sparkle symbols in the Hero background layer */
+.hero-section::before {
+  content: '✦';
+  position: absolute;
+  top: 18%;
+  right: 15%;
+  color: var(--color-gold);
+  font-size: 2rem;
+  opacity: 0.6;
+  animation: floatSparkle 4s infinite ease-in-out alternate;
+  z-index: 3;
+}
+
+.hero-section::after {
+  content: '✦';
+  position: absolute;
+  bottom: 22%;
+  left: 10%;
+  color: var(--color-accent);
+  font-size: 1.4rem;
+  opacity: 0.5;
+  animation: floatSparkle 6s infinite ease-in-out alternate-reverse;
+  z-index: 3;
+}
+
+@keyframes floatSparkle {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(0.85);
+    filter: drop-shadow(0 0 2px var(--color-gold));
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-25px) rotate(45deg) scale(1.25);
+    filter: drop-shadow(0 0 8px var(--color-gold));
+    opacity: 0.2;
+  }
+}
+
+/* Dynamic Spacing for About Counter Number and Plus Sign */
+.about-experience-tag h3 {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.about-experience-tag .plus-sign {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+/* Testimonial Author Profile picture subtle micro-bounce on hover */
+.review-card:hover .review-author-img {
+  animation: bounceAvatar 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes bounceAvatar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px) scale(1.04); }
+}

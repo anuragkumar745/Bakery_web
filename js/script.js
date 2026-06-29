@@ -243,26 +243,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 9. Intersection Observer Scroll Reveal Animation Hooks
+  // 9. Intersection Observer Scroll Reveal & Counter Count-up Hooks
   const revealElements = document.querySelectorAll('.scroll-reveal');
+
+  const animateCounter = (counter) => {
+    const target = parseInt(counter.getAttribute('data-target'), 10);
+    const duration = 1800; // 1.8 seconds transition
+    let startTime = null;
+
+    const step = (currentTime) => {
+      if (!startTime) startTime = currentTime;
+      const progress = currentTime - startTime;
+      const rate = Math.min(progress / duration, 1);
+      // Ease out quad formula for premium feel
+      const easeRate = rate * (2 - rate);
+      
+      counter.textContent = Math.floor(easeRate * target);
+
+      if (progress < duration) {
+        window.requestAnimationFrame(step);
+      } else {
+        counter.textContent = target;
+      }
+    };
+    window.requestAnimationFrame(step);
+  };
 
   if ('IntersectionObserver' in window) {
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
+          
+          // Trigger counter animations inside this revealed block if present
+          const counters = entry.target.querySelectorAll('.counter-num');
+          counters.forEach(counter => animateCounter(counter));
+
           observer.unobserve(entry.target); // Reveal only once
         }
       });
     }, {
-      threshold: 0.12, // Trigger when 12% of the element is visible
+      threshold: 0.12,
       rootMargin: '0px 0px -40px 0px'
     });
 
     revealElements.forEach(el => revealObserver.observe(el));
   } else {
-    // Fallback: instantly reveal everything if browser lacks support
+    // Fallback: instantly reveal and populate targets
     revealElements.forEach(el => el.classList.add('active'));
+    document.querySelectorAll('.counter-num').forEach(c => {
+      c.textContent = c.getAttribute('data-target');
+    });
   }
 
   // 10. Contact Form Submissions Simulator
